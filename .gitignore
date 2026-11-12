@@ -1,0 +1,11 @@
+# 配布物（ZIP・アドイン本体・exe）は GitHub Releases の添付ファイルとして公開し、
+# git の履歴には入れない（履歴の肥大化を防ぎ、版ごとに配布物を固定するため）。
+*.zip
+*.ppam
+*.pptm
+*.exe
+
+# Windows / エディタの一時ファイル
+Thumbs.db
+desktop.ini
+~$*
