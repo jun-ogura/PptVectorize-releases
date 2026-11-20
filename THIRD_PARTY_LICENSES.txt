@@ -5,10 +5,11 @@
 本配布物には、以下の第三者ソフトウェアが含まれます。
 
 ----------------------------------------------------------
- vtracer（カラー画像のベクター化エンジン / engines\vtracer.exe）
+ vtracer（カラー画像のベクター化エンジン）
+   Windows 版: engines\vtracer.exe / Mac 版: engines/vtracer
 ----------------------------------------------------------
 - ライセンス: MIT License
-- 同梱バージョン: 1.0.0-alpha.4
+- 同梱バージョン: 1.0.0-alpha.4（Windows 版・Mac 版とも同じ版）
 - 入手元: https://github.com/visioncortex/vtracer
 - 以下にライセンス全文（原文）を収録します。
 
@@ -43,7 +44,8 @@ DEALINGS IN THE SOFTWARE.
 ----------------------------------------------------------
 - ライセンス: GNU General Public License v2 (GPLv2)
 - 入手元: https://potrace.sourceforge.net/
-- potrace.exe は本配布物に同梱していません。線画変換機能を
+- potrace（Windows 版: potrace.exe / Mac 版: potrace）は
+  本配布物に同梱していません。線画変換機能を
   利用する場合は、ユーザーご自身で公式サイトから入手し、
   インストール手順書に記載のフォルダに配置してください。
 - potrace の利用条件は、入手元で提示される GPLv2 に従います。

@@ -6,7 +6,7 @@ PptVectorize — PowerPoint の画像を SVG ベクターに変換するアド�
 </p>
 
 PowerPoint 上の画像（PNG・JPEG など）を、**リボンのボタン1つで SVG ベクターに変換してスライドに挿入する**
-Windows 用アドイン **PptVectorize** の公開配布リポジトリです。
+Windows・Mac 用アドイン **PptVectorize** の公開配布リポジトリです。
 配布 ZIP は本リポジトリの [**Releases**](../../releases) ページからダウンロードできます。
 
 > **PptVectorize は無償のプロプライエタリ・ソフトウェアです（オープンソースではありません）。**
@@ -16,7 +16,12 @@ Windows 用アドイン **PptVectorize** の公開配布リポジトリです。
 
 [➡ 最新リリースを開く](../../releases/latest)
 
-ダウンロードするのは `PptVectorize_v<版>.zip`（例: `PptVectorize_v1.1.0.zip`）です。
+お使いのパソコンに合わせて、次のどちらかをダウンロードしてください。
+
+| パソコン | ダウンロードするファイル（例） |
+|----------|------------------------------|
+| Windows | `PptVectorize_v<版>.zip`（例: `PptVectorize_v1.2.0.zip`） |
+| Mac | `PptVectorize_v<版>_mac.zip`（例: `PptVectorize_v1.2.0_mac.zip`） |
 
 ## 主な特徴
 
@@ -75,13 +80,18 @@ flowchart TD
 
 ## 動作環境
 
-- Windows 10 / 11
-- PowerPoint 2019 以降 または Microsoft 365 の**デスクトップ版**（Web 版・Mac 版は非対応）
+**Windows**
+- Windows 11
+- PowerPoint 2019 以降 または Microsoft 365 の**デスクトップ版**（Web 版は非対応）
   - SVG の挿入に対応している版が必要です。買い切り版の PowerPoint 2016 は SVG の挿入に対応していないため、動作対象外です。
 
-## 導入方法
+**Mac**（v1.2.0 から）
+- Apple シリコン搭載の Mac（動作確認: M1 Mac mini / macOS Golden Gate 27.2.1。Intel 搭載の Mac は未確認）
+- PowerPoint for Mac（Microsoft 365）の**デスクトップ版**
 
-詳しい手順は、ZIP に同梱の **`インストール手順.pdf`**（本リポジトリの [インストール手順.pdf](./インストール手順.pdf) と同じもの）をご覧ください。
+## 導入方法（Windows）
+
+詳しい手順は、ZIP に同梱の **`インストール手順_Windows.pdf`**（本リポジトリの [インストール手順_Windows.pdf](./インストール手順_Windows.pdf) と同じもの）をご覧ください。
 おおまかな流れは次のとおりです。
 
 ```mermaid
@@ -101,16 +111,51 @@ flowchart TD
 |----------|------|
 | `PptVectorize.ppam` | アドイン本体 |
 | `engines\vtracer.exe` | カラー変換エンジン（MIT ライセンス・同梱） |
-| `インストール手順.pdf` | 導入・使い方・困ったときの手順書 |
+| `インストール手順_Windows.pdf` | 導入・使い方・困ったときの手順書 |
 | `LICENSE.txt` | 本体のライセンス |
 | `利用規約.txt` | 利用条件の全文 |
 | `THIRD_PARTY_LICENSES.txt` | 第三者ソフトウェアのライセンス表示 |
 
-### 線画エンジン potrace について
+## 導入方法（Mac）
+
+詳しい手順は、Mac 用 ZIP に同梱の **`インストール手順_Mac.pdf`**（本リポジトリの [インストール手順_Mac.pdf](./インストール手順_Mac.pdf) と同じもの）をご覧ください。
+ファイルのコピーなどは、手順書のコマンドをターミナルに貼り付けて行います。おおまかな流れは次のとおりです。
+
+```mermaid
+flowchart TD
+    A["Releases から Mac 用 ZIP をダウンロードして展開"] --> B["ターミナルで PptVectorize.ppam と engines を<br/>~/Library/Application Support/PptVectorize/ にコピー"]
+    B --> C["PptVectorize.scpt を<br/>~/Library/Application Scripts/com.microsoft.Powerpoint/ にコピー"]
+    C --> D{"線画も使う？"}
+    D -->|"使う"| E["Rosetta 2 と potrace（公式サイトの Mac 版）を入れ<br/>engines フォルダに置く"]
+    D -->|"カラーだけ"| F["ターミナルで安全のための印（隔離属性）を外す"]
+    E --> F
+    F --> G["PowerPoint の「ツール」→「PowerPoint アドイン」で<br/>PptVectorize.ppam を登録"]
+    G --> H["初めての変換で「ファイル アクセスを許可」が出たら許可"]
+```
+
+> `~/Library` は、ホームフォルダの中の「ライブラリ」です（ふだんは隠しフォルダ。Finder で `⌘ + ⇧ + .` を押すと表示されます）。
+> 「Macintosh HD」直下の「ライブラリ」ではありません。
+
+### ZIP の中身（Mac）
+
+| ファイル | 内容 |
+|----------|------|
+| `PptVectorize.ppam` | アドイン本体（Windows 版と同じファイル） |
+| `engines/vtracer` | カラー変換エンジン（Apple シリコン用。MIT ライセンス・同梱） |
+| `PptVectorize.scpt` | Mac で変換エンジンを動かすための AppleScript |
+| `インストール手順_Mac.pdf` | 導入・使い方・困ったときの手順書 |
+| `LICENSE.txt` | 本体のライセンス |
+| `利用規約.txt` | 利用条件の全文 |
+| `THIRD_PARTY_LICENSES.txt` | 第三者ソフトウェアのライセンス表示 |
+
+## 線画エンジン potrace について
 
 線画変換に使う **potrace は同梱していません**（GPLv2 ライセンスのため）。
-線画も使う場合は、公式サイト <https://potrace.sourceforge.net> から Windows 版を入手し、
-`potrace.exe` を `engines` フォルダに置いてください。カラー変換だけなら不要です。
+線画も使う場合は、公式サイト <https://potrace.sourceforge.net> から入手してください。カラー変換だけなら不要です。
+
+- **Windows**: Windows 版を入手し、`potrace.exe` を `engines` フォルダに置きます。
+- **Mac**: Mac 版（`potrace-1.16.mac-x86_64.tar.gz`。Intel 用）を入手し、`potrace` を `engines` フォルダに置きます。
+  Apple シリコンの Mac では Rosetta 2 を通して動きます（手順は `インストール手順_Mac.pdf`）。
 
 ## お問い合わせ
 
